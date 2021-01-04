@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_phone_alias_system,twilio.phone_alias.system,model_twilio_phone_alias,base.group_system,1,1,1,1
+access_phone_alias_all,twilio.phone_alias.all,model_twilio_phone_alias,,1,0,0,0

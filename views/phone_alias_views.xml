@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_phone_alias_tree" model="ir.ui.view">
+            <field name="name">twilio.phone_alias.list</field>
+            <field name="model">twilio.phone_alias</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" string="Phone Alias">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="message_ids" string="Email Count"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_phone_alias_form" model="ir.ui.view">
+            <field name="name">twilio.phone_alias.form</field>
+            <field name="model">twilio.phone_alias</field>
+            <field name="arch" type="xml">
+                <form string="Phone Alias">
+                    <header>
+                        <button string="Enable" type="object" name="button_done" states="draft"/>
+                        <button string="Disable" type="object" name="button_draft" states="done"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="date"/>
+                        </group>
+                        <notebook>
+                            <page string="Configuration">
+                                <group>
+                                    <group>
+                                        <field name="phone_number" widget="phone"/>
+                                        <field name="secret"/>
+                                    </group>
+                                    <group string="Actions to Perform on Incoming Message">
+                                        <field name="object_id"/>
+                                        <field name="defaults"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Advanced" groups="base.group_no_one">
+                                <group string="Advanced Options" col="4">
+                                    <field name="priority"/>
+                                    <field name="active"/>
+<!--                                    <field name="attach"/>-->
+<!--                                    <field name="original"/>-->
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_phone_alias_search" model="ir.ui.view">
+            <field name="name">twilio.phone_alias.search</field>
+            <field name="model">twilio.phone_alias</field>
+            <field name="arch" type="xml">
+                <search string="Search Phone Alias">
+                    <field name="name" string="Message Alias"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_phone_alias_tree" model="ir.actions.act_window">
+            <field name="name">Phone Alias</field>
+            <field name="res_model">twilio.phone_alias</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+            parent="phone_validation.phone_menu_main"
+            id="menu_action_phone_alias_tree"
+            action="action_phone_alias_tree"
+            sequence="10"
+        />
+
+    </data>
+</odoo>
